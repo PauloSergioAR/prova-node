@@ -1,7 +1,18 @@
 let custumers = []
 
 function getDependents(req, res){
-    res.send(req.params.cpf)
+    if(!req.params.cpf){
+        res.sendStatus(405)
+        
+    } else {
+        let response = custumers.filter(item => item.cpfTitular === req.params.cpf)
+
+        if (response.length == 0){
+            res.sendStatus(404)
+        } else {
+            res.json(response)
+        }
+    }
 }
 
 function deleteCostumer(req, res){
